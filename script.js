@@ -32,8 +32,9 @@ function handleNoButtonClick() {
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
     const imageElement = document.getElementsByClassName("image")[0];
+    const noMessage = document.getElementById("no-message");
 
-    if (!noButton || !yesButton || !imageElement) {
+    if (!noButton || !yesButton || !imageElement || !noMessage) {
         console.error("Required elements not found in the DOM.");
         return;
     }
@@ -66,6 +67,9 @@ function handleNoButtonClick() {
         yesButton.style.height = "100vh";
         yesButton.style.fontSize = "3rem";
     }
+
+    // Show the "No" message
+    noMessage.style.display = "block";
 }
 
 // Handle "Yes" button click
@@ -74,6 +78,7 @@ function handleYesButtonClick() {
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
     const imageElement = document.getElementsByClassName("image")[0];
+    const yesMessage = document.getElementById("yes-message");
 
     if (nameElement) nameElement.remove();
     if (noButton) noButton.remove();
@@ -85,6 +90,11 @@ function handleYesButtonClick() {
 
     if (imageElement) {
         imageElement.src = "images/dance.gif";
+    }
+
+    // Show the "Yes" message
+    if (yesMessage) {
+        yesMessage.style.display = "block";
     }
 }
 
