@@ -1,5 +1,5 @@
 // Create an audio element
-const audio = new Audio('until i found you - stephen sanchez, em beihold (sped uptiktok version) lyrics.mp3');
+const audio = new Audio('until-i-found-you.mp3'); // Ensure correct file path
 
 // Function to play the audio
 function playAudio() {
@@ -19,9 +19,11 @@ function stopAudio() {
     audio.currentTime = 0;
 }
 
-// Play audio when the page loads
+// Play audio after user interaction
 window.addEventListener('load', () => {
-    playAudio();
+    document.body.addEventListener('click', () => {
+        playAudio();
+    }, { once: true });
 });
 
 // Handle "No" button text changes and GIF changes
@@ -30,6 +32,12 @@ function handleNoButtonClick() {
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
     const imageElement = document.getElementsByClassName("image")[0];
+
+    if (!noButton || !yesButton || !imageElement) {
+        console.error("Required elements not found in the DOM.");
+        return;
+    }
+
     const messages = [
         "Are you sure?",
         "Chyouky please",
@@ -41,7 +49,7 @@ function handleNoButtonClick() {
         "images/Sad Cat GIF.gif",
         "images/Cat Crying GIF.gif"
     ];
-    
+
     if (noButtonClicks < messages.length) {
         noButton.textContent = messages[noButtonClicks];
         if (noButtonClicks < gifs.length) {
@@ -49,7 +57,7 @@ function handleNoButtonClick() {
         }
         noButtonClicks++;
     }
-    
+
     if (noButtonClicks === messages.length) {
         yesButton.style.position = "fixed";
         yesButton.style.top = "0";
@@ -62,13 +70,20 @@ function handleNoButtonClick() {
 
 // Handle "Yes" button click
 function handleYesButtonClick() {
-    document.getElementById("name").remove();
-    document.getElementById("no-button").remove();
-    
-    const audioElement = document.createElement("audio");
-    audioElement.src = "./Minions Cheering.mp4";
+    const nameElement = document.getElementById("name");
+    const noButton = document.getElementById("no-button");
+    const yesButton = document.getElementById("yes-button");
+    const imageElement = document.getElementsByClassName("image")[0];
+
+    if (nameElement) nameElement.remove();
+    if (noButton) noButton.remove();
+    if (yesButton) yesButton.remove();
+
+    const audioElement = new Audio("./Minions Cheering.mp3"); // Ensure correct file format
     audioElement.preload = "auto";
     audioElement.play().catch(e => console.error("Audio playback failed:", e));
-    
-    document.getElementsByClassName("image")[0].src = "images/dance.gif";
-    document.getElementById("yes-button").remove();
+
+    if (imageElement) {
+        imageElement.src = "images/dance.gif";
+    }
+}
