@@ -24,19 +24,29 @@ window.addEventListener('load', () => {
     playAudio();
 });
 
-// Handle "No" button text changes
+// Handle "No" button text changes and GIF changes
 let noButtonClicks = 0;
 function handleNoButtonClick() {
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
+    const imageElement = document.getElementsByClassName("image")[0];
     const messages = [
         "Are you sure?",
         "Chyouky please",
         "Don't do this to me:(",
         "Ur breaking my heart"
     ];
+    const gifs = [
+        "images/Happy Cat Sticker.gif",
+        "images/Sad Cat GIF.gif",
+        "images/Cat Crying GIF.gif"
+    ];
+    
     if (noButtonClicks < messages.length) {
         noButton.textContent = messages[noButtonClicks];
+        if (noButtonClicks < gifs.length) {
+            imageElement.src = gifs[noButtonClicks];
+        }
         noButtonClicks++;
     }
     
@@ -62,4 +72,3 @@ function handleYesButtonClick() {
     
     document.getElementsByClassName("image")[0].src = "images/dance.gif";
     document.getElementById("yes-button").remove();
-}
