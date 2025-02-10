@@ -1,5 +1,10 @@
-const videoElement = document.createElement("video");
-        videoElement.src = "./Maroon 5 - Sugar.mp4#t=42";
+const audio = new Audio('your-audio-file.mp3');
+
+// Function to play the audio
+function playAudio() {
+    audio.play()
+        .then(() => console.log('Audio is playing'))
+        .catch(error => console.error('Error playing audio:', error));
 function showMessage(response) {
   let videoPlayed = false;
   if (response === "No") {
