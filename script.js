@@ -1,88 +1,65 @@
-const audio = new Audio('your-audio-file.mp3');
+// Create an audio element
+const audio = new Audio('until i found you - stephen sanchez, em beihold (sped uptiktok version) lyrics.mp3');
 
 // Function to play the audio
 function playAudio() {
     audio.play()
         .then(() => console.log('Audio is playing'))
         .catch(error => console.error('Error playing audio:', error));
-function showMessage(response) {
-  let videoPlayed = false;
-  if (response === "No") {
+}
+
+// Function to pause the audio
+function pauseAudio() {
+    audio.pause();
+}
+
+// Function to stop the audio (resetting time to 0)
+function stopAudio() {
+    audio.pause();
+    audio.currentTime = 0;
+}
+
+// Play audio when the page loads
+window.addEventListener('load', () => {
+    playAudio();
+});
+
+// Handle "No" button text changes
+let noButtonClicks = 0;
+function handleNoButtonClick() {
     const noButton = document.getElementById("no-button");
-    const maxWidth = window.innerWidth - noButton.offsetWidth;
-    const maxHeight = window.innerHeight - noButton.offsetHeight;
+    const yesButton = document.getElementById("yes-button");
+    const messages = [
+        "Are you sure?",
+        "Chyouky please",
+        "Don't do this to me:(",
+        "Ur breaking my heart"
+    ];
+    if (noButtonClicks < messages.length) {
+        noButton.textContent = messages[noButtonClicks];
+        noButtonClicks++;
+    }
+    
+    if (noButtonClicks === messages.length) {
+        yesButton.style.position = "fixed";
+        yesButton.style.top = "0";
+        yesButton.style.left = "0";
+        yesButton.style.width = "100vw";
+        yesButton.style.height = "100vh";
+        yesButton.style.fontSize = "3rem";
+    }
+}
 
-    // Set the button position to absolute
-    noButton.style.position = "absolute";
-
-    // Change the image source to "gun.gif"
-    document.getElementsByClassName("image")[0].src = "images/gun.gif";
-
-    // Generate random coordinates within the visible container
-    const randomX = Math.max(0, Math.floor(Math.random() * maxWidth));
-    const randomY = Math.max(0, Math.floor(Math.random() * maxHeight));
-
-    // Apply the new coordinates to the button
-    noButton.style.left = randomX + "px";
-    noButton.style.top = randomY + "px";
-
-    // Update text content and hide the name message
-    document.getElementById("question").textContent =
-      "Choose wisely";
-    document.getElementById("name").style.display = "none";
-
-    // Add a mouseover event listener to the "No" button
-    noButton.addEventListener("mouseover", () => {
-      if (!videoPlayed) {
-        const videoElement = document.createElement("video");
-        videoElement.src = "./Maroon 5 - Sugar.mp4#t=42";
-        videoElement.autoplay = true;
-        videoElement.controls = false;
-        document.body.appendChild(videoElement);
-        videoElement.style.position = "fixed";
-        videoElement.style.top = "40%";
-        videoElement.style.left = "50%";
-        videoElement.style.transform = "translate(-50%, -50%)";
-        videoElement.style.width = "700px"
-        document.body.appendChild(videoElement);
-        // Set the flag to true after playing the video
-        videoPlayed = true;
-      }
-
-      // Generate new random coordinates when the button is hovered
-      const randomX = Math.max(0, Math.floor(Math.random() * maxWidth));
-      const randomY = Math.max(0, Math.floor(Math.random() * maxHeight));
-
-      noButton.style.zIndex = "100";
-      // Apply new coordinates to the button, causing it to move
-      noButton.style.left = randomX + "px";
-      noButton.style.top = randomY + "px";
-    });
-  }
-
-  if (response === "Yes") {
-    // Remove the name message and the "No" button
+// Handle "Yes" button click
+function handleYesButtonClick() {
     document.getElementById("name").remove();
     document.getElementById("no-button").remove();
-    const videoElement = document.querySelector("video");
-    if (videoElement) {
-      videoElement.pause();
-      videoElement.remove();
-    }
-
-    // Create an audio element to play the sound
+    
     const audioElement = document.createElement("audio");
-    audioElement.src = "./Minions Cheering.mp4"; // Source of the sound
-    audioElement.preload = "auto"; // Preloading the audio
-    audioElement.play() // Play the sound
-      .catch(e => console.error("Audio playback failed:", e)); // Catch and log playback errors
-
-    // Update the text content, display the message, and change the image to "dance.gif"
-    const yesMessage = document.getElementById("question");
+    audioElement.src = "./Minions Cheering.mp4";
+    audioElement.preload = "auto";
+    audioElement.play().catch(e => console.error("Audio playback failed:", e));
+    
     document.getElementsByClassName("image")[0].src = "images/dance.gif";
-
-    // Remove the "Yes" button
-    document.getElementById("yesButton").remove();
-  }
-
+    document.getElementById("yes-button").remove();
 }
