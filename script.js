@@ -87,3 +87,7 @@ function handleYesButtonClick() {
         imageElement.src = "images/dance.gif";
     }
 }
+
+// Attach event listeners to buttons
+document.getElementById("yes-button").addEventListener("click", handleYesButtonClick);
+document.getElementById("no-button").addEventListener("click", handleNoButtonClick);
