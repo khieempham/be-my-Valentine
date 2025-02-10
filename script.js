@@ -2,7 +2,7 @@
 const audio = new Audio('until i found you - stephen sanchez, em beihold (sped uptiktok version) lyrics.mp3');
 
 audio.preload = "auto"; // Preload the audio for smoother playback
-audio.volume = 0.5; // Set volume to 50%
+audio.volume = 0.2; // Set volume to 50%
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded, adding event listeners');
