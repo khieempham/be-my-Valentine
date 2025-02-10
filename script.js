@@ -1,8 +1,9 @@
 // Create an audio element
-const audio = new Audio('until-i-found-you.mp3'); // Ensure correct file path
+const audio = new Audio('until-i-found-you.mp3'); // Updated file name
 
 // Function to play the audio
 function playAudio() {
+    audio.load(); // Ensure the audio is loaded
     audio.play()
         .then(() => console.log('Audio is playing'))
         .catch(error => console.error('Error playing audio:', error));
@@ -68,6 +69,11 @@ function handleNoButtonClick() {
         yesButton.style.fontSize = "3rem";
     }
 
+    // Play the "No" audio
+    audio.play()
+        .then(() => console.log("No audio is playing"))
+        .catch(e => console.error("No audio playback failed:", e));
+
     // Show the "No" message
     noMessage.style.display = "block";
 }
@@ -84,9 +90,12 @@ function handleYesButtonClick() {
     if (noButton) noButton.remove();
     if (yesButton) yesButton.remove();
 
+    // Play the "Yes" audio
     const audioElement = new Audio("./Minions Cheering.mp3"); // Ensure correct file format
     audioElement.preload = "auto";
-    audioElement.play().catch(e => console.error("Audio playback failed:", e));
+    audioElement.play()
+        .then(() => console.log("Yes audio is playing"))
+        .catch(e => console.error("Yes audio playback failed:", e));
 
     if (imageElement) {
         imageElement.src = "images/dance.gif";
