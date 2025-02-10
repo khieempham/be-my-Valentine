@@ -1,3 +1,5 @@
+const videoElement = document.createElement("video");
+        videoElement.src = "./Maroon 5 - Sugar.mp4#t=42";
 function showMessage(response) {
   let videoPlayed = false;
   if (response === "No") {
@@ -72,9 +74,6 @@ function showMessage(response) {
 
     // Update the text content, display the message, and change the image to "dance.gif"
     const yesMessage = document.getElementById("question");
-    yesMessage.textContent = "See you on the 14th my princess";
-    yesMessage.style.display = "block";
-    yesMessage.style.fontStyle = "normal";
     document.getElementsByClassName("image")[0].src = "images/dance.gif";
 
     // Remove the "Yes" button
