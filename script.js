@@ -14,11 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { once: true });
 });
 
-// Function to play the audio
+// Function to play the audio starting from 34 seconds
 function playAudio() {
-    console.log('Attempting to play audio...');
+    console.log('Attempting to play audio from 34 seconds...');
+    audio.currentTime = 34; // Start at 34th second
     audio.play()
-        .then(() => console.log('Audio is playing'))
+        .then(() => console.log('Audio is playing from 34s'))
         .catch(error => console.error('Error playing audio:', error));
 }
 
@@ -65,13 +66,19 @@ function handleYesButtonClick() {
     console.log('Yes button clicked');
     document.getElementById("name")?.remove();
     document.getElementById("no-button")?.remove();
+    document.getElementById("yes-button")?.remove();
     
-    const audioElement = new Audio("Minions Cheering.mp3");
+    const audioElement = new Audio("Minions Cheering.mp4"); // Ensure correct file format and extension
     audioElement.preload = "auto";
     audioElement.play()
         .then(() => console.log("Yes audio is playing"))
         .catch(e => console.error("Audio playback failed:", e));
     
     document.getElementsByClassName("image")[0].src = "images/dance.gif";
-    document.getElementById("yes-button")?.remove();
+    
+    // Show the "Yes" message
+    const yesMessage = document.getElementById("yes-message");
+    if (yesMessage) {
+        yesMessage.style.display = "block";
+    }
 }
