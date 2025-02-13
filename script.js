@@ -46,27 +46,20 @@ function handleNoButtonClick() {
     const gifs = [
         "images/Happy Cat Sticker.gif",
         "images/Sad Cat GIF.gif",
-        "images/Cat Crying GIF.gif"
+        "images/Cat Crying GIF.gif",
+        "images/cet.jpg" // ✅ Added "cet.jpg" for "Ur breaking my heart"
     ];
 
-    if (noButtonClicks < messages.length - 1) {  
-        // ✅ Update text & GIF correctly
-        noButton.textContent = messages[noButtonClicks];
-        if (noButtonClicks < gifs.length) {
-            imageElement.src = gifs[noButtonClicks];
-        }
-        noButtonClicks++; // ✅ Moves to the next stage
-    } 
-    else if (noButtonClicks === messages.length - 1) {
-        // ✅ Last "No" click BEFORE enlarging "Yes" button
+    if (noButtonClicks < messages.length) {  
         noButton.textContent = messages[noButtonClicks];
         if (noButtonClicks < gifs.length) {
             imageElement.src = gifs[noButtonClicks];
         }
         noButtonClicks++; 
-    } 
-    else if (noButtonClicks === messages.length) {
-        // ✅ "Yes" button ONLY enlarges AFTER "Ur breaking my heart" is clicked
+    }
+
+    if (noButtonClicks === messages.length) {
+        // ✅ Enlarges "Yes" button ONLY after clicking "Ur breaking my heart"
         setTimeout(() => {
             yesButton.style.position = "fixed";
             yesButton.style.top = "0";
