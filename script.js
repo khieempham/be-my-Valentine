@@ -30,7 +30,12 @@ let noButtonClicks = 0;
 function handleNoButtonClick() {
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
-    const imageElement = document.querySelector(".image"); // Ensure this exists
+    const imageElement = document.querySelector(".image");
+
+    if (!noButton || !yesButton || !imageElement) {
+        console.error("One or more elements are missing.");
+        return; // Stop execution if elements aren't found
+    }
 
     const messages = [
         "Are you sure?",
@@ -50,16 +55,22 @@ function handleNoButtonClick() {
         if (noButtonClicks < gifs.length) {
             imageElement.src = gifs[noButtonClicks];
         }
-        noButtonClicks++;
-    }
 
-    // ✅ Enlarge "Yes" button **only after** clicking "Ur breaking my heart"
-    if (noButtonClicks === messages.length) {
-        setTimeout(() => {
-            yesButton.style.position = "fixed";
-            yesButton.style.top = "0";
-            yesButton.style.left = "0";
-            yesButton.style.width =
+        noButtonClicks++;
+
+        // ✅ "Yes" button enlarges ONLY after the last message click
+        if (noButtonClicks === messages.length) {
+            setTimeout(() => {
+                yesButton.style.position = "fixed";
+                yesButton.style.top = "0";
+                yesButton.style.left = "0";
+                yesButton.style.width = "100vw";
+                yesButton.style.height = "100vh";
+                yesButton.style.fontSize = "3rem";
+            }, 500);
+        }
+    }
+}
 // Handle "Yes" button click
 function handleYesButtonClick() {
     console.log('Yes button clicked');
