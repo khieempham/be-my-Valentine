@@ -47,19 +47,17 @@ function handleNoButtonClick() {
         "images/Happy Cat Sticker.gif",
         "images/Sad Cat GIF.gif",
         "images/Cat Crying GIF.gif",
-        "images/cet.jpg" // ✅ Added "cet.jpg" for "Ur breaking my heart"
+        "images/cet.jpg" // ✅ Displays with "Ur breaking my heart"
     ];
 
     if (noButtonClicks < messages.length) {  
         noButton.textContent = messages[noButtonClicks];
-        if (noButtonClicks < gifs.length) {
-            imageElement.src = gifs[noButtonClicks];
-        }
-        noButtonClicks++; 
+        imageElement.src = gifs[noButtonClicks];
+        noButtonClicks++; // ✅ Move forward after updating content
     }
 
     if (noButtonClicks === messages.length) {
-        // ✅ Enlarges "Yes" button ONLY after clicking "Ur breaking my heart"
+        // ✅ ONLY enlarges "Yes" button AFTER clicking "Ur breaking my heart"
         setTimeout(() => {
             yesButton.style.position = "fixed";
             yesButton.style.top = "0";
