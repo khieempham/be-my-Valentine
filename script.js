@@ -27,10 +27,16 @@ function playAudio() {
 // Handle "No" button text changes and GIF changes
 let noButtonClicks = 0;
 
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("no-button")?.addEventListener("click", handleNoButtonClick);
+});
+
 function handleNoButtonClick() {
+    console.log(`No button clicked: ${noButtonClicks + 1} times`);
+
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
-    const imageElement = document.getElementById("image");
+    const imageElement = document.querySelector(".image"); // Ensure proper selection
 
     const messages = [
         "Are you sure?",
@@ -44,19 +50,17 @@ function handleNoButtonClick() {
         "images/crying_cat.gif"
     ];
 
-    if (noButtonClicks < messages.length - 1) {
-        noButton.textContent = messages[noButtonClicks]; // Update button text
-    } else if (noButtonClicks === messages.length - 1) {
-        noButton.textContent = messages[noButtonClicks]; // Show "Ur breaking my heart"
+    if (noButtonClicks < messages.length) {
+        noButton.textContent = messages[noButtonClicks]; // Change text
     }
 
     if (noButtonClicks < gifs.length) {
-        imageElement.src = gifs[noButtonClicks]; // Update GIF
+        imageElement.src = gifs[noButtonClicks]; // Change GIF
     }
 
     noButtonClicks++;
 
-    // ✅ Now, the "Yes" button enlarges ONLY after "Ur breaking my heart" is clicked
+    // ✅ "Yes" button enlarges **only after clicking "Ur breaking my heart"**
     if (noButtonClicks === messages.length) {
         setTimeout(() => {
             yesButton.style.position = "fixed";
@@ -65,22 +69,9 @@ function handleNoButtonClick() {
             yesButton.style.width = "100vw";
             yesButton.style.height = "100vh";
             yesButton.style.fontSize = "3rem";
-        }, 300); // Small delay to allow "Ur breaking my heart" to be seen before enlarging
+        }, 500); // 0.5s delay so last message is visible before enlarging
     }
 }
-    // ✅ Only enlarge the "Yes" button AFTER displaying all messages
-    if (noButtonClicks === messages.length) {
-        setTimeout(() => { // Delay slightly to let the last message show
-            yesButton.style.position = "fixed";
-            yesButton.style.top = "0";
-            yesButton.style.left = "0";
-            yesButton.style.width = "100vw";
-            yesButton.style.height = "100vh";
-            yesButton.style.fontSize = "3rem";
-        }, 500); // Small delay (0.5s) to ensure "Ur breaking my heart" appears
-    }
-}
-
 // Handle "Yes" button click
 function handleYesButtonClick() {
     console.log('Yes button clicked');
