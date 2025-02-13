@@ -44,15 +44,30 @@ function handleNoButtonClick() {
         "images/crying_cat.gif"
     ];
 
-    if (noButtonClicks < messages.length) {
-        noButton.textContent = messages[noButtonClicks];
+    if (noButtonClicks < messages.length - 1) {
+        noButton.textContent = messages[noButtonClicks]; // Update button text
+    } else if (noButtonClicks === messages.length - 1) {
+        noButton.textContent = messages[noButtonClicks]; // Show "Ur breaking my heart"
     }
+
     if (noButtonClicks < gifs.length) {
-        imageElement.src = gifs[noButtonClicks];
+        imageElement.src = gifs[noButtonClicks]; // Update GIF
     }
 
     noButtonClicks++;
 
+    // ✅ Now, the "Yes" button enlarges ONLY after "Ur breaking my heart" is clicked
+    if (noButtonClicks === messages.length) {
+        setTimeout(() => {
+            yesButton.style.position = "fixed";
+            yesButton.style.top = "0";
+            yesButton.style.left = "0";
+            yesButton.style.width = "100vw";
+            yesButton.style.height = "100vh";
+            yesButton.style.fontSize = "3rem";
+        }, 300); // Small delay to allow "Ur breaking my heart" to be seen before enlarging
+    }
+}
     // ✅ Only enlarge the "Yes" button AFTER displaying all messages
     if (noButtonClicks === messages.length) {
         setTimeout(() => { // Delay slightly to let the last message show
