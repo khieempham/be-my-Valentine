@@ -50,14 +50,20 @@ function handleNoButtonClick() {
         "images/cet.jpg" // ✅ Displays with "Ur breaking my heart"
     ];
 
-    if (noButtonClicks < messages.length) {  
+    if (noButtonClicks < messages.length - 1) {  
         noButton.textContent = messages[noButtonClicks];
         imageElement.src = gifs[noButtonClicks];
-        noButtonClicks++; // ✅ Move forward after updating content
-    }
+        noButtonClicks++; // ✅ Increment normally
+    } 
+    else if (noButtonClicks === messages.length - 1) {
+        // ✅ LAST message ("Ur breaking my heart") & "cet.jpg"
+        noButton.textContent = messages[noButtonClicks];
+        imageElement.src = gifs[noButtonClicks];
 
-    if (noButtonClicks === messages.length) {
-        // ✅ ONLY enlarges "Yes" button AFTER clicking "Ur breaking my heart"
+        noButtonClicks++; // ✅ Increment AFTER updating message & image, but BEFORE enlarging
+    } 
+    else if (noButtonClicks === messages.length) {
+        // ✅ Enlarges "Yes" button ONLY AFTER clicking "Ur breaking my heart"
         setTimeout(() => {
             yesButton.style.position = "fixed";
             yesButton.style.top = "0";
