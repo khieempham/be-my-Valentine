@@ -27,16 +27,10 @@ function playAudio() {
 // Handle "No" button text changes and GIF changes
 let noButtonClicks = 0;
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("no-button")?.addEventListener("click", handleNoButtonClick);
-});
-
 function handleNoButtonClick() {
-    console.log(`No button clicked: ${noButtonClicks + 1} times`);
-
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
-    const imageElement = document.querySelector(".image"); // Ensure proper selection
+    const imageElement = document.querySelector(".image"); // Selects the correct image
 
     const messages = [
         "Are you sure?",
@@ -45,22 +39,22 @@ function handleNoButtonClick() {
         "Ur breaking my heart"
     ];
     const gifs = [
-        "images/happy_cat.gif",
-        "images/sad_cat.gif",
-        "images/crying_cat.gif"
+        "images/Happy Cat Sticker.gif",
+        "images/Sad Cat GIF.gif",
+        "images/Cat Crying GIF.gif"
     ];
 
     if (noButtonClicks < messages.length) {
-        noButton.textContent = messages[noButtonClicks]; // Change text
+        noButton.textContent = messages[noButtonClicks]; // Update button text
     }
 
     if (noButtonClicks < gifs.length) {
-        imageElement.src = gifs[noButtonClicks]; // Change GIF
+        imageElement.src = gifs[noButtonClicks]; // Update GIF
     }
 
     noButtonClicks++;
 
-    // ✅ "Yes" button enlarges **only after clicking "Ur breaking my heart"**
+    // "Yes" button enlarges ONLY after "Ur breaking my heart" is clicked
     if (noButtonClicks === messages.length) {
         setTimeout(() => {
             yesButton.style.position = "fixed";
@@ -69,7 +63,7 @@ function handleNoButtonClick() {
             yesButton.style.width = "100vw";
             yesButton.style.height = "100vh";
             yesButton.style.fontSize = "3rem";
-        }, 500); // 0.5s delay so last message is visible before enlarging
+        }, 500); // Short delay to let "Ur breaking my heart" be seen
     }
 }
 // Handle "Yes" button click
