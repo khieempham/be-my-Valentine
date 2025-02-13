@@ -34,7 +34,7 @@ function handleNoButtonClick() {
 
     if (!noButton || !yesButton || !imageElement) {
         console.error("One or more elements are missing.");
-        return; // Stop execution if elements aren't found
+        return;
     }
 
     const messages = [
@@ -49,26 +49,32 @@ function handleNoButtonClick() {
         "images/Cat Crying GIF.gif"
     ];
 
-    if (noButtonClicks < messages.length) {
+    if (noButtonClicks < messages.length - 1) {  
+        // ✅ Update text & GIF correctly
         noButton.textContent = messages[noButtonClicks];
-
         if (noButtonClicks < gifs.length) {
             imageElement.src = gifs[noButtonClicks];
         }
-
-        noButtonClicks++;
-
-        // ✅ "Yes" button enlarges ONLY after the last message click
-        if (noButtonClicks === messages.length) {
-            setTimeout(() => {
-                yesButton.style.position = "fixed";
-                yesButton.style.top = "0";
-                yesButton.style.left = "0";
-                yesButton.style.width = "100vw";
-                yesButton.style.height = "100vh";
-                yesButton.style.fontSize = "3rem";
-            }, 500);
+        noButtonClicks++; // ✅ Moves to the next stage
+    } 
+    else if (noButtonClicks === messages.length - 1) {
+        // ✅ Last "No" click BEFORE enlarging "Yes" button
+        noButton.textContent = messages[noButtonClicks];
+        if (noButtonClicks < gifs.length) {
+            imageElement.src = gifs[noButtonClicks];
         }
+        noButtonClicks++; 
+    } 
+    else if (noButtonClicks === messages.length) {
+        // ✅ "Yes" button ONLY enlarges AFTER "Ur breaking my heart" is clicked
+        setTimeout(() => {
+            yesButton.style.position = "fixed";
+            yesButton.style.top = "0";
+            yesButton.style.left = "0";
+            yesButton.style.width = "100vw";
+            yesButton.style.height = "100vh";
+            yesButton.style.fontSize = "3rem";
+        }, 500);
     }
 }
 // Handle "Yes" button click
