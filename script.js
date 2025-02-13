@@ -1,58 +1,44 @@
-// Create an audio element
-const audio = new Audio('until i found you - stephen sanchez, em beihold (sped uptiktok version) lyrics.mp3');
+// Create an audio element for background music
+const audio = new Audio("until i found you.mp3");
+audio.preload = "auto";
+audio.volume = 0.2;
 
-audio.preload = "auto"; // Preload the audio for smoother playback
-audio.volume = 0.2; // Set volume to 50%
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("no-button").addEventListener("click", handleNoButtonClick);
+    document.getElementById("yes-button").addEventListener("click", handleYesButtonClick);
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded, adding event listeners');
-    document.getElementById("no-button")?.addEventListener("click", handleNoButtonClick);
-    document.getElementById("yes-button")?.addEventListener("click", handleYesButtonClick);
-    
-    document.body.addEventListener('click', () => {
-        console.log('User interacted, playing audio...');
+    document.body.addEventListener("click", () => {
         playAudio();
     }, { once: true });
 });
 
-// Function to play the audio starting from 34 seconds
+// Function to play the audio from 34 seconds
 function playAudio() {
-    console.log('Attempting to play audio from 34 seconds...');
-    audio.currentTime = 34; // Start at 34th second
-    audio.play()
-        .then(() => console.log('Audio is playing from 34s'))
-        .catch(error => console.error('Error playing audio:', error));
+    audio.currentTime = 34;
+    audio.play().catch(error => console.error("Error playing audio:", error));
 }
 
-// Handle "No" button text changes and GIF changes
+// No button logic
 let noButtonClicks = 0;
 function handleNoButtonClick() {
-    console.log(`No button clicked ${noButtonClicks + 1} times`);
     const noButton = document.getElementById("no-button");
     const yesButton = document.getElementById("yes-button");
-    const imageElement = document.getElementsByClassName("image")[0];
-    const messages = [
-        "Are you sure?",
-        "Chyouky please",
-        "Don't do this to me:(",
-        "Ur breaking my heart"
-    ];
-    const gifs = [
-        "images/Happy Cat Sticker.gif",
-        "images/Sad Cat GIF.gif",
-        "images/Cat Crying GIF.gif"
-    ];
-    
+    const imageElement = document.querySelector(".image");
+
+    const messages = ["Are you sure?", "Chyouky please", "Don't do this to me :(", "Ur breaking my heart"];
+    const gifs = ["images/happy_cat.gif", "images/sad_cat.gif", "images/crying_cat.gif"];
+
     if (noButtonClicks < messages.length) {
         noButton.textContent = messages[noButtonClicks];
-        if (noButtonClicks < gifs.length) {
-            imageElement.src = gifs[noButtonClicks];
-        }
-        noButtonClicks++;
     }
-    
+
+    if (noButtonClicks < gifs.length) {
+        imageElement.src = gifs[noButtonClicks];
+    }
+
+    noButtonClicks++;
+
     if (noButtonClicks === messages.length) {
-        console.log('Final no-button click reached, enlarging Yes button');
         yesButton.style.position = "fixed";
         yesButton.style.top = "0";
         yesButton.style.left = "0";
@@ -62,24 +48,19 @@ function handleNoButtonClick() {
     }
 }
 
-// Handle "Yes" button click
+// Yes button logic
 function handleYesButtonClick() {
-    console.log('Yes button clicked');
-    document.getElementById("name")?.remove();
-    document.getElementById("no-button")?.remove();
-    document.getElementById("yes-button")?.remove();
-    
-    const audioElement = new Audio("Minions Cheering.mp4"); // Ensure correct file format and extension
-    audioElement.preload = "auto";
-    audioElement.play()
-        .then(() => console.log("Yes audio is playing"))
-        .catch(e => console.error("Audio playback failed:", e));
-    
-    document.getElementsByClassName("image")[0].src = "images/dance.gif";
-    
-    // Show the "Yes" message
+    document.getElementById("name").remove();
+    document.getElementById("question").remove();
+    document.getElementById("no-button").remove();
+    document.getElementById("yes-button").remove();
+
     const yesMessage = document.getElementById("yes-message");
-    if (yesMessage) {
-        yesMessage.style.display = "block";
-    }
+    yesMessage.style.display = "block";
+
+    const audioElement = new Audio("Minions Cheering.mp3");
+    audioElement.preload = "auto";
+    audioElement.play().catch(error => console.error("Audio playback failed:", error));
+
+    document.querySelector(".image").src = "images/dance.gif";
 }
